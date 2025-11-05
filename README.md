@@ -7,6 +7,15 @@
 - **Clean Architecture**: RequestService, AutosaveService, presentational Sidebar/Footer, Wizard.
 - **Mobile-ready** sidebar for Mobile and Desktop.
 
+## Tech Stack
+- Angular v20
+- Standalone Components
+- Reactive Forms
+- RxJS (valueChanges, debounceTime, retry, concatMap)
+- Angular Material v20
+- Mocked API (no backend required)
+
+
 ## Architecture
 
 - **Schema JSON**: ./src/app/core/data/data.json file for fields/sections.
@@ -15,15 +24,7 @@
 - **Wizard Component**: builds FormGroup from schema and drives navigation.
 - **Summary**: read-only view of answers after Submit.
 
-### 🚀 Tech Stack
-- Angular v20
-- Standalone Components
-- Reactive Forms
-- RxJS (valueChanges, debounceTime, retry, concatMap)
-- Angular Material v20
-- Mocked API (no backend required)
-
-## Autosave Contract
+## Autosave
 - Debounce: 400–600ms
 - Retry: `retry count: 2`. see retry logs in browser console
 - UI states: _Saving…_, _Saved_, _Error — retrying…_
