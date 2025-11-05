@@ -1,0 +1,15 @@
+<div class="footer">
+  <button type="button" class="prev-btn" (click)="onPrev()" *ngIf="index > 1" [disabled]="saveStatus === 'saving'">
+    Previous
+  </button>
+
+  <button *ngIf="!isLastSection" color="primary" type="button" class="next-btn" (click)="onNext()"
+    [disabled]="formInvalid || saveStatus !== 'saved'">
+    Next
+  </button>
+
+  <button *ngIf="isLastSection" color="primary" type="button" class="next-btn" (click)="onSubmit()"
+    [disabled]="formInvalid || saveStatus !== 'saved'">
+    {{ saveStatus === 'saving' ? 'Saving…' : 'Submit' }}
+  </button>
+</div>

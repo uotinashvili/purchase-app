@@ -1,0 +1,60 @@
+<div class="wizard-layout" *ngIf="schema">
+  <button class="sidebar-toggle" type="button" (click)="sidebarOpen = !sidebarOpen">
+    ☰ Menu
+  </button>
+
+  <app-wizard-sidebar [schema]="schema" [currentIndex]="index" (sectionChange)="navigateToSection($event)"
+    [formValid]="form.valid" [saveStatus]="saveStatus" [class.open]="sidebarOpen">
+  </app-wizard-sidebar>
+  <div class="backdrop" *ngIf="sidebarOpen" (click)="sidebarOpen = false"></div>
+
+  <div class="wizard-content">
+    <div class="form-title">{{ schema.title }}</div>
+
+    <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
+
+      <div class="form-card" *ngFor="let field of currentSection.fields">
+        <label class="field-label">{{ field.label }} <span *ngIf="field.required">*</span></label>
+
+        <ng-container [ngSwitch]="field.type">
+
+          <mat-form-field *ngSwitchCase="'text'" appearance="outline" style="width:100%">
+            <input matInput [formControlName]="fcName(field)" type="text">
+            <mat-error *ngIf="isInvalid(field)">This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="'number'" appearance="outline" style="width:100%">
+            <input matInput [formControlName]="fcName(field)" type="number">
+            <mat-error *ngIf="isInvalid(field)">This field is required</mat-error>
+          </mat-form-field>
+
+          <div *ngSwitchCase="'radio'">
+            <mat-radio-group [formControlName]="fcName(field)" class="radio-group">
+              <mat-radio-button *ngFor="let opt of field.options" [value]="opt">{{ opt }}</mat-radio-button>
+            </mat-radio-group>
+            <div class="mat-mdc-form-field-hint mat-mdc-form-field-bottom-align" *ngIf="isInvalid(field)"
+              style="color:#d32f2f">This field is required</div>
+          </div>
+
+          <mat-slide-toggle class="toggle" *ngSwitchCase="'toggle'" [formControlName]="fcName(field)" disableRipple>
+          </mat-slide-toggle>
+
+
+        </ng-container>
+      </div>
+
+      <div class="save-status" [class.error]="saveStatus==='error'">
+        <ng-container [ngSwitch]="saveStatus">
+          <span *ngSwitchCase="'saving'">Saving…</span>
+          <span *ngSwitchCase="'saved'">Saved</span>
+          <span *ngSwitchCase="'error'">Error — retrying…</span>
+        </ng-container>
+      </div>
+
+      <app-wizard-footer [index]="index" [isLastSection]="isLastSection" [saveStatus]="saveStatus"
+        [formInvalid]="form.invalid" (prevClick)="prev()" (nextClick)="next()" (submitClick)="onSubmit()">
+      </app-wizard-footer>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="purchase-container">
+  <div class="purchase-card">
+    <h2 class="title">What do you need to purchase?</h2>
+
+    <app-pill-toggle
+      [(value)]="schema"
+      [options]="schemaOptions"></app-pill-toggle>
+
+    <button
+      mat-raised-button
+      class="start-button"
+      color="primary"
+      [disabled]="!schema"
+      (click)="onStart()"
+    >
+      Start
+    </button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<aside class="sidebar">
+  <div class="home-link" (click)="goHome()">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Schemas
+  </div>
+
+  <div class="item" *ngFor="let section of schema.sections; let i = index" [class.active]="currentIndex === i + 1"
+    [class.disabled]="(i + 1) > currentIndex && !canNavigateForward()" (click)="onSelect(i + 1)">
+    {{ section.title }}
+  </div>
+</aside>

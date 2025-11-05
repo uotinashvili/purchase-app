@@ -1,0 +1,7 @@
+<div class="toggle-group">
+  <button type="button" class="pill-button" *ngFor="let option of options" [class.active]="value === option.value"
+    (click)="select(option.value)">
+    <mat-icon *ngIf="option.icon">{{ option.icon }}</mat-icon>
+    {{ option.label }}
+  </button>
+</div>

@@ -1,0 +1,56 @@
+# Angular build outputs
+/dist
+/out
+/build
+/tmp
+/.angular
+/.angular/cache
+
+# Node
+/node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+
+# Environment files (ignore if they contain secrets)
+src/environments/*.env
+*.local
+*.local.env
+
+# IDE / Editor files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Local runtime files
+*.log
+*.tmp
+*.cache
+
+# Angular Universal / SSR
+/server.ts
+/ssr
+
+# Coverage reports
+/coverage
+
+# Compiled Typescript Output
+/**/*.js
+/**/*.js.map
+/**/*.d.ts.map
+
+# Storybook (if added later)
+.storybook-out
+storybook-static
+
+# Testing
+/test-output
+/playwright-report

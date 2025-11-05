@@ -1,0 +1,134 @@
+@use "sass:color";
+
+.form-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.mdc-text-field--outlined .mdc-notched-outline {
+  border-radius: 12px !important;
+}
+
+.mdc-text-field {
+  background: #fff !important;
+}
+
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #e9ecee !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #7cc7b9 !important;
+}
+
+$mat-error-color: #d32f2f;
+
+.mdc-text-field--outlined.mdc-text-field--invalid .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--invalid .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--invalid .mdc-notched-outline__trailing {
+  border-color: $mat-error-color !important;
+}
+
+.mdc-text-field--invalid .mdc-text-field__input {
+  color: $mat-error-color !important;
+}
+
+.mdc-text-field--invalid .mdc-floating-label {
+  color: $mat-error-color !important;
+}
+
+.mdc-text-field--outlined.mdc-text-field--invalid:hover .mdc-notched-outline__leading,
+.mdc-text-field--outlined.mdc-text-field--invalid:hover .mdc-notched-outline__notch,
+.mdc-text-field--outlined.mdc-text-field--invalid:hover .mdc-notched-outline__trailing {
+  border-color: color.adjust($mat-error-color, $lightness: 10%) !important;
+
+}
+
+.mat-mdc-radio-button {
+  display: inline-flex !important;
+  align-items: center;
+  --radio-selected-border: #7cc7b9;
+  --radio-selected-bg: #eef8f6;
+  --radio-selected-text: #3c897b;
+}
+
+.mat-mdc-radio-button .mdc-form-field {
+  display: inline-flex !important;
+  align-items: center;
+  border: 1.5px solid #e9ecee;
+  background: #ffffff;
+  padding: 0px 16px 0px 0px;
+  border-radius: 22px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mat-mdc-radio-button:hover .mdc-form-field {
+  background: #fafdfd;
+  border-color: #d5dfe2;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-form-field {
+  border-color: var(--radio-selected-border);
+  background: var(--radio-selected-bg);
+  color: var(--radio-selected-text);
+  font-weight: 500;
+}
+
+.mat-mdc-radio-button .mdc-radio {
+  margin: 0 !important;
+  width: 18px;
+  height: 18px;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio .mdc-radio__background {
+  border-color: var(--radio-selected-text) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio .mdc-radio__native-control:checked+.mdc-radio__background::before {
+  background-color: var(--radio-selected-text) !important;
+}
+
+.toggle {
+  .mdc-switch__track::before {
+    border: 0;
+    background: #cccccc;
+  }
+
+  .mdc-switch__ripple {
+    display: none !important;
+  }
+
+  .mdc-switch__icons {
+    display: none !important;
+  }
+
+  .mdc-switch__track::after {
+    background: rgba(29, 180, 150, 0.2)
+  }
+
+  .mdc-switch--selected:disabled .mdc-switch__handle::after {
+    background: red;
+  }
+
+  .mdc-switch--selected:enabled .mdc-switch__handle::after {
+    background: rgba(29, 180, 150);
+  }
+
+  .mdc-switch--selected:enabled .mdc-switch__handle::after:hover {
+    background: red
+  }
+}

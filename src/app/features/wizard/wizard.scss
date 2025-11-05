@@ -1,0 +1,156 @@
+.wizard-layout {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.sidebar {
+  width: 250px;
+}
+
+.item {
+  padding: .75rem 1rem;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-right: 2px solid #dfdfdf;
+  color: #666;
+}
+
+.item.active {
+  font-weight: 600;
+  color: #3ab49b;
+  background: #e7f5f1;
+  border-right: 3px solid #3ab49b;
+}
+
+.wizard-content {
+  flex: 1;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .05)
+}
+
+.field-label {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 500;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: .5rem;
+}
+
+.footer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.save-status {
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #6b6b6b;
+}
+
+.save-status.error {
+  color: #d32f2f;
+}
+
+.sidebar-toggle {
+  display: none;
+  margin-bottom: 1rem;
+  background: #3ab49b;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .wizard-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+  }
+
+  .wizard-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    padding-top: 1rem;
+    background: #ffffff;
+    border-right: 1px solid #e3e3e3;
+    transition: left 0.3s ease;
+    z-index: 30;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar.open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: -1;
+  }
+
+  .wizard-layout {
+    padding: 1rem;
+  }
+
+  .form-card {
+    padding: 16px;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1001;
+    cursor: pointer;
+  }
+
+  @media (min-width: 769px) {
+    .backdrop {
+      display: none;
+    }
+  }
+}

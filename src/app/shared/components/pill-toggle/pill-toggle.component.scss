@@ -1,0 +1,32 @@
+.toggle-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pill-button {
+  border-radius: 9999px;
+  border: 2px solid #dcdcdc;
+  background: #fff;
+  color: #333;
+  font-weight: 500;
+  padding: 0.65rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.pill-button:hover {
+  border-color: #3ab49b;
+  background: #f1f9f7;
+}
+
+.pill-button.active {
+  border-color: #3ab49b;
+  color: #3ab49b;
+  background: #e9f7f3;
+}

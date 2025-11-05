@@ -1,0 +1,106 @@
+.purchase-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f6f7;
+}
+
+.purchase-card {
+  background: #fff;
+  padding: 2rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+  width: 100%;
+  max-width: 480px;
+  min-width: auto;
+
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2.5rem;
+}
+
+.toggle-group {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.pill-button {
+  border-radius: 9999px;
+  border: 2px solid #dcdcdc;
+  background: #fff;
+  color: #333;
+  font-weight: 500;
+  padding: 0.65rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #3ab49b;
+    background: #f1f9f7;
+  }
+}
+
+.pill-button.active {
+  border-color: #3ab49b;
+  color: #3ab49b;
+  background: #e9f7f3;
+}
+
+.start-button {
+  margin-top: 2rem;
+  background-color: #3ab49b !important;
+  color: white !important;
+  padding: 0 3rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+  display: inline-block;
+}
+
+.start-button:hover:not(:disabled) {
+  background-color: #36a38d !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18) !important;
+}
+
+.start-button:disabled {
+  opacity: 0.6;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .toggle-group {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .pill-button {
+    padding: 0.55rem 1.3rem;
+    font-size: 0.95rem;
+  }
+
+  .start-button {
+    padding: 0.8rem 2.2rem;
+    font-size: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+}

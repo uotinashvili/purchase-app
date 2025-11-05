@@ -1,0 +1,27 @@
+<div class="summary-container" *ngIf="schema">
+  <div class="emoji">🧁</div>
+  <h1 class="title">Awesome!</h1>
+  <p class="subtitle">It works!</p>
+
+  <h3 class="summary-title">Summary</h3>
+
+  <div class="summary-table">
+    <div class="row header">
+      <div>Question</div>
+      <div>Answer</div>
+    </div>
+
+    <ng-container *ngFor="let sec of schema.sections">
+      <div class="row section">{{ sec.title }}</div>
+
+      <div class="row" *ngFor="let f of sec.fields">
+        <div>{{ f.label }}</div>
+        <div>{{ displayAnswer(getValue(f.id)) }}</div>
+      </div>
+    </ng-container>
+  </div>
+
+  <button olor="primary" class="reset-btn" (click)="reset()">
+    Complete the flow and Reset
+  </button>
+</div>
