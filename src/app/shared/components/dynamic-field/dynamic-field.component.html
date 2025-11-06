@@ -1,0 +1,31 @@
+<div class="field-block">
+  <label class="field-label">
+    {{ field.label }} <span *ngIf="field.required">*</span>
+  </label>
+
+  <ng-container [ngSwitch]="field.type">
+
+    <mat-form-field *ngSwitchCase="'text'" appearance="outline" style="width: 100%">
+      <input matInput [formControl]="control" type="text">
+      <mat-error *ngIf="isInvalid">This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'number'" appearance="outline" style="width: 100%">
+      <input matInput [formControl]="control" type="number">
+      <mat-error *ngIf="isInvalid">This field is required</mat-error>
+    </mat-form-field>
+
+    <div *ngSwitchCase="'radio'">
+      <mat-radio-group [formControl]="control" class="radio-group">
+        <mat-radio-button *ngFor="let option of field.options" [value]="option">
+          {{ option }}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div class="error" *ngIf="isInvalid">This field is required</div>
+    </div>
+
+    <mat-slide-toggle *ngSwitchCase="'toggle'" class="toggle" [formControl]="control" disableRipple>
+    </mat-slide-toggle>
+
+  </ng-container>
+</div>

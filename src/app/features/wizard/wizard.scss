@@ -48,33 +48,34 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, .05)
 }
 
-.field-label {
-  display: block;
-  margin-bottom: .5rem;
-  font-weight: 500;
-}
-
-.radio-group {
-  display: flex;
-  gap: 1rem;
-  margin-top: .5rem;
-}
-
-.footer {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
 .save-status {
   margin-top: .25rem;
   font-size: .875rem;
-  color: #6b6b6b;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  width: 100%;
+  transition: background 0.3s ease;
+
+  &.saving {
+    background: #fff4ce;
+    color: #9a6c00;
+    border: 1px solid #ffe6a3;
+  }
+
+  &.saved {
+    background: #e7f5f1;
+    color: #3ab49b;
+    border: 1px solid #3ab49b33;
+  }
+
+  &.error {
+    background: #fdeaea;
+    color: #d32f2f;
+    border: 1px solid #f3b5b5;
+  }
 }
 
-.save-status.error {
-  color: #d32f2f;
-}
 
 .sidebar-toggle {
   display: none;

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RequestSchema } from '../../../core/models/schema.model';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { RequestService } from '../../../core/services/request.service';
 
 @Component({
   selector: 'app-wizard-sidebar',
@@ -16,9 +17,11 @@ export class WizardSidebarComponent {
   @Input() currentIndex!: number;
   @Input() formValid!: boolean;
   @Input() saveStatus!: 'saving' | 'saved' | 'error';
+  @Input() requestId!: string;
+
   @Output() sectionChange = new EventEmitter<number>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private requestService: RequestService) { }
 
   canNavigateForward(): boolean {
     return this.formValid && this.saveStatus === 'saved';
@@ -33,6 +36,7 @@ export class WizardSidebarComponent {
   }
 
   goHome() {
+    this.requestService.resetRequest(this.requestId);
     this.router.navigate(['/schemas']);
   }
 }

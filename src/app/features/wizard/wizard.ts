@@ -4,15 +4,12 @@ import { RequestSchema, SchemaField, SchemaSection } from '../../core/models/sch
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { WizardFooterComponent } from './footer/wizard-footer';
 import { WizardSidebarComponent } from './sidebar/wizard-sidebar';
 import { RequestService } from '../../core/services/request.service';
 import { AutosaveService } from '../../core/services/auto-save.service';
+import { DynamicFieldComponent } from '../../shared/components/dynamic-field/dynamic-field.component';
 
 @Component({
   selector: 'app-request-wizard',
@@ -21,12 +18,9 @@ import { AutosaveService } from '../../core/services/auto-save.service';
     CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSlideToggleModule,
     WizardSidebarComponent,
-    WizardFooterComponent
+    WizardFooterComponent,
+    DynamicFieldComponent
   ],
   templateUrl: './wizard.html',
   styleUrls: ['./wizard.scss']
