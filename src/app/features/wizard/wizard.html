@@ -13,7 +13,7 @@
 
     <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
 
-      <div class="form-card" *ngFor="let field of currentSection.fields">
+      <div class="form-card" *ngFor="let field of currentSection.fields; trackBy: trackByField">
         <app-dynamic-field [field]="field" [form]="form"></app-dynamic-field>
       </div>
 
@@ -21,7 +21,7 @@
         <ng-container [ngSwitch]="saveStatus">
           <span *ngSwitchCase="'saving'">Saving…</span>
           <span *ngSwitchCase="'saved'">Saved</span>
-          <span *ngSwitchCase="'error'">Error — retrying…</span>
+          <span *ngSwitchCase="'error'">Could not save. Will retry when next change happens.</span>
         </ng-container>
       </div>
 

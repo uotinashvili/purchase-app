@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestSchema, SchemaField, SchemaSection } from '../../core/models/schema.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,7 +23,8 @@ import { DynamicFieldComponent } from '../../shared/components/dynamic-field/dyn
     DynamicFieldComponent
   ],
   templateUrl: './wizard.html',
-  styleUrls: ['./wizard.scss']
+  styleUrls: ['./wizard.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestWizardComponent implements OnInit, OnDestroy {
   schema!: RequestSchema;
@@ -36,11 +37,14 @@ export class RequestWizardComponent implements OnInit, OnDestroy {
   sidebarOpen = false;
   destroy$ = new Subject<void>();
 
+  private cleanupAutosave: (() => void) | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private requestService: RequestService,
-    private autosave: AutosaveService
+    private autosave: AutosaveService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -71,9 +75,15 @@ export class RequestWizardComponent implements OnInit, OnDestroy {
 
         this.buildForm(this.currentSection);
 
-        this.forceSave(() => {
-          this.autosave.setup(this.form, this.requestId, this.currentSection, s => this.saveStatus = s);
-        });
+        this.cleanupAutosave = this.autosave.setup(
+          this.form,
+          this.requestId,
+          this.currentSection,
+          s => {
+            this.saveStatus = s;
+            this.cdr.markForCheck();
+          }
+        );
       });
   }
 
@@ -119,12 +129,24 @@ export class RequestWizardComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.forceSave(() => {
+    if (this.cleanupAutosave) this.cleanupAutosave();
+
+    this.autosave.forceSave(this.form, this.requestId, this.currentSection, s => {
+      this.saveStatus = s;
+      this.cdr.markForCheck();
+    }).subscribe(() => {
       this.router.navigate(['/request', this.requestId, 'summary']);
     });
   }
 
+
+  trackByField(_: number, field: SchemaField) {
+    return field.id;
+  }
+
   ngOnDestroy(): void {
+    if (this.cleanupAutosave) this.cleanupAutosave();
+
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -148,6 +170,8 @@ export class RequestWizardComponent implements OnInit, OnDestroy {
         this.form.get(key)!.setValue(value, { emitEvent: false });
       }
     });
+
+    this.cdr.markForCheck();
   }
 
   private markAndFocusFirstInvalid() {
@@ -155,9 +179,24 @@ export class RequestWizardComponent implements OnInit, OnDestroy {
   }
 
   private forceSave(callBack: () => void) {
-    this.autosave.forceSave(this.form, this.requestId, this.currentSection, s => this.saveStatus = s)
-      .subscribe(() => {
-        callBack();
-      });
+    if (this.cleanupAutosave) this.cleanupAutosave();
+
+    this.autosave.forceSave(this.form, this.requestId, this.currentSection, s => {
+      this.saveStatus = s;
+      this.cdr.markForCheck();
+    }).subscribe(() => {
+      callBack();
+      this.cdr.markForCheck();
+
+      this.cleanupAutosave = this.autosave.setup(
+        this.form,
+        this.requestId,
+        this.currentSection,
+        s => {
+          this.saveStatus = s;
+          this.cdr.markForCheck();
+        }
+      );
+    });
   }
 }

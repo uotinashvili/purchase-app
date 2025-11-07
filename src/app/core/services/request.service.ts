@@ -7,7 +7,6 @@ import schemaData from '../data/data.json';
 @Injectable({ providedIn: 'root' })
 export class RequestService {
   private answers = new Map<RequestId, Map<string, any>>();
-
   private schemas: RequestSchema[] = (schemaData as any[]).map(schema => ({
     ...schema,
     sections: schema.sections.map((section: any) => ({
@@ -32,19 +31,13 @@ export class RequestService {
     return of(this.schemas).pipe(delay(200));
   }
 
-  getSchemaById(id: string): Observable<RequestSchema | undefined> {
-    return this.getSchemas().pipe(
-      map(schemas => schemas.find(schema => schema.id === id))
-    );
-  }
-
   // Simulate: PUT /api/requests/:id/question/:questionId
   saveAnswer(requestId: RequestId, questionId: QuestionId, value: any): Observable<SaveResult> {
-    const latency = 400 + Math.floor(Math.random() * 400);
-    const failChance = Math.random();
+    const latency = 600 + Math.floor(Math.random() * 401);
+    const shouldFail = Math.random() < 0.15;
     const key = String(questionId);
 
-    if (failChance < 0.1) {
+    if (shouldFail) {
       return throwError(() => new Error('Mock save failed')).pipe(delay(latency));
     }
 
@@ -58,29 +51,6 @@ export class RequestService {
     );
   }
 
-  saveSection(requestId: string, section: SchemaSection, values: Record<string, any>) {
-    const latency = 600 + Math.floor(Math.random() * 401);
-    const failChance = Math.random();
-
-    if (failChance < 0.15) {
-      return throwError(() => new Error('Mock save failed')).pipe(delay(latency));
-    }
-
-    return of({ ok: true }).pipe(
-      delay(latency),
-      map(() => {
-        if (!this.answers.has(requestId)) this.answers.set(requestId, new Map());
-        const bucket = this.answers.get(requestId)!;
-
-        Object.entries(values).forEach(([key, val]) => {
-          bucket.set(String(key), val);
-        });
-
-        return { ok: true };
-      })
-    );
-  }
-
   getSavedForSection(requestId: RequestId, section: SchemaSection): Record<string, any> {
     const stored = this.answers.get(requestId);
     const result: Record<string, any> = {};
@@ -90,7 +60,6 @@ export class RequestService {
       const key = String(f.id);
       if (stored.has(key)) result[key] = stored.get(key);
     });
-
     return result;
   }
 

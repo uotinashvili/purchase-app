@@ -1,16 +1,18 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RequestSchema } from '../../../core/models/schema.model';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { RequestService } from '../../../core/services/request.service';
+import { AutosaveService } from '../../../core/services/auto-save.service';
 
 @Component({
   selector: 'app-wizard-sidebar',
   standalone: true,
   imports: [CommonModule, MatIcon],
   templateUrl: 'wizard-sidebar.html',
-  styleUrls: ['./wizard-sidebar.scss']
+  styleUrls: ['./wizard-sidebar.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WizardSidebarComponent {
   @Input() schema!: RequestSchema;
@@ -21,7 +23,7 @@ export class WizardSidebarComponent {
 
   @Output() sectionChange = new EventEmitter<number>();
 
-  constructor(private router: Router, private requestService: RequestService) { }
+  constructor(private router: Router, private requestService: RequestService, private autoSaveService: AutosaveService) { }
 
   canNavigateForward(): boolean {
     return this.formValid && this.saveStatus === 'saved';
@@ -36,7 +38,12 @@ export class WizardSidebarComponent {
   }
 
   goHome() {
+    this.autoSaveService.stop();
     this.requestService.resetRequest(this.requestId);
     this.router.navigate(['/schemas']);
+  }
+
+  trackBySection(_: number, section: { id: string }) {
+    return section.id;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { PillToggleComponent } from '../../shared/components/pill-toggle/pill-toggle.component';
@@ -13,6 +13,7 @@ import { RequestService } from '../../core/services/request.service';
   ],
   templateUrl: './schema-selector.component.html',
   styleUrls: ['./schema-selector.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SchemaSelectionComponent implements OnInit {
   schema: string | null = null;

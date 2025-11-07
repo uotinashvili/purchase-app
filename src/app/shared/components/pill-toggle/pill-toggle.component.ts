@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -14,6 +14,7 @@ export interface PillToggleOption {
   imports: [CommonModule, MatIconModule],
   templateUrl: './pill-toggle.component.html',
   styleUrls: ['./pill-toggle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PillToggleComponent {
   @Input() options: PillToggleOption[] = [];
@@ -21,7 +22,10 @@ export class PillToggleComponent {
   @Output() valueChange = new EventEmitter<string>();
 
   select(v: string) {
-    this.value = v;
     this.valueChange.emit(v);
+  }
+
+  trackByOption(_: number, option: { value: string }) {
+    return option.value;
   }
 }

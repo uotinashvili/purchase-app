@@ -11,10 +11,10 @@
       <div>Answer</div>
     </div>
 
-    <ng-container *ngFor="let sec of schema.sections">
+    <ng-container *ngFor="let sec of schema.sections; trackBy: trackBySection">
       <div class="row section">{{ sec.title }}</div>
 
-      <div class="row" *ngFor="let f of sec.fields">
+      <div class="row" *ngFor="let f of sec.fields; trackBy: trackByField">
         <div>{{ f.label }}</div>
         <div>{{ displayAnswer(getValue(f.id)) }}</div>
       </div>

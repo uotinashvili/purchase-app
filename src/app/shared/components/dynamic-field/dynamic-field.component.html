@@ -16,8 +16,8 @@
     </mat-form-field>
 
     <div *ngSwitchCase="'radio'">
-      <mat-radio-group [formControl]="control" class="radio-group">
-        <mat-radio-button *ngFor="let option of field.options" [value]="option">
+      <mat-radio-group [formControl]="control" class="radio-group" (change)="onRadioChange()">
+        <mat-radio-button *ngFor="let option of field.options; trackBy: trackByOption" [value]="option.toString()">
           {{ option }}
         </mat-radio-button>
       </mat-radio-group>

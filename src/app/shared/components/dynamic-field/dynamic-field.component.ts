@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +20,6 @@ import { SchemaField } from '../../../core/models/schema.model';
   ],
   templateUrl: './dynamic-field.component.html',
   styleUrl: './dynamic-field.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFieldComponent {
   @Input() field!: SchemaField;
@@ -33,5 +32,13 @@ export class DynamicFieldComponent {
   get isInvalid() {
     const c = this.control;
     return c.touched && c.invalid
+  }
+
+  onRadioChange() {
+    this.control.markAsDirty();
+  }
+
+  trackByOption(_: number, option: string) {
+    return option;
   }
 }
